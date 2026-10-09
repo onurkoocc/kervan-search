@@ -1,0 +1,6 @@
+-c requirements.txt
+fastapi
+uvicorn
+httpx
+httpx2
+pytest

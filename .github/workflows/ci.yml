@@ -1,0 +1,38 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-dev.txt
+      - run: python -m pytest
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test stage (offline)
+        run: docker build --target test -t kervan-search:test .
+      - name: Service image
+        run: docker build -t kervan-search .
+      - name: Health check
+        run: |
+          docker run -d --name search -p 8001:8001 kervan-search
+          for i in $(seq 1 30); do
+            curl -fsS http://127.0.0.1:8001/health && exit 0
+            sleep 1
+          done
+          docker logs search
+          exit 1

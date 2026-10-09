@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kervan-search"
+version = "0.1.0"
+description = "Kervan knowledge base search (FastAPI) with a pluggable vector search provider"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+# Exact pins live in requirements.txt (hashed); these are the direct dependencies.
+dependencies = ["fastapi", "uvicorn", "httpx"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+filterwarnings = ["error"]
