@@ -1,5 +1,8 @@
 # kervan-search
 
+> Part of **[Kervan](https://github.com/onurkoocc/kervan-system)**, a fictional cargo company built as a
+> reference for backends where AI agents can safely act on a customer's behalf. Start there.
+
 Knowledge base search for Kervan, a fictional cargo and delivery company. It
 serves short help articles to `kervan-mcp`'s `search_help` tool. All content is
 synthetic. The shared contract for every Kervan repository is the system
